@@ -7,6 +7,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -100,10 +101,62 @@ public class ControllerDesktop implements Initializable{
                 itemController.setText(nom);
                 itemController.setImage(imatge);
 
+                // Defineix el callback que s'executarà quan l'usuari seleccioni un element
+                // (cal passar final perquè es pugui accedir des del callback)
+                final String type = opcioSeleccionada;
+                final int index = i;
+                itemTemplate.setOnMouseClicked(event -> {
+                    showInfo(type, index);
+                });
+
                 yPane.getChildren().add(itemTemplate);
             }
         }
     }
+
+    void showInfo(String type, int index) {
+
+        // Obtenir una referència a l'ojecte AppData que gestiona les dades
+        AppData appData = AppData.getInstance();
+      
+        // Obtenir les dades de l'opció seleccionada
+        JSONObject dades = appData.getItemData(type, index);
+      
+        // Carregar la plantilla
+        URL resource = this.getClass().getResource("assets/template_info_item.fxml");
+      
+        // Esborrar la informació actual
+        info.getChildren().clear();
+        
+        try {
+            FXMLLoader loader = new FXMLLoader(resource);
+            Parent itemTemplate = loader.load();
+            ControllerInfoItem itemController = loader.getController();
+            itemController.setImage("assets/images/" + dades.getString("imatge"));
+            itemController.setTitle(dades.getString("nom"));
+            switch (type) {
+              case "Consoles": itemController.setText(dades.getString("procesador") + "\n" + dades.getString("data") +"\ncolor: "+ dades.getString("color") + "\nvenudes: "+ dades.getInt("venudes")); break;
+              case "Jocs": itemController.setText("genere: " + dades.getString("tipus") + "\nany: " + dades.getInt("any") + "\n" + dades.getString("descripcio")); break;
+              case "Personatges": itemController.setText(dades.getString("nom_del_videojoc") + "\ncolor: " + dades.getString("color")); break;
+            }
+        
+            // Afegeix la informació a la vista
+            info.getChildren().add(itemTemplate);
+
+            // Estableix que la mida de itemTemplaate s'ajusti a la mida de info
+            AnchorPane.setTopAnchor(itemTemplate, 0.0);
+            AnchorPane.setRightAnchor(itemTemplate, 0.0);
+            AnchorPane.setBottomAnchor(itemTemplate, 0.0);
+            AnchorPane.setLeftAnchor(itemTemplate, 0.0);
+
+            } catch (Exception e) {
+                System.out.println("ControllerDesktop: Error showing info.");
+                System.out.println(e);
+        }
+    }
+
+
+
 
     // Funció ‘showLoading’, mostrar una càrrega
     public void showLoading() {
