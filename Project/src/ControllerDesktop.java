@@ -126,7 +126,7 @@ public class ControllerDesktop implements Initializable{
         // Carregar la plantilla
         switch(type){
             case "Consoles": 
-                resource = this.getClass().getResource("assets/template_info_item.fxml");
+                resource = this.getClass().getResource("assets/template_info_C.fxml");
                 break;
 
             case "Jocs": 
