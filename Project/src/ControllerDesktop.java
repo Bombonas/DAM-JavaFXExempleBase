@@ -121,9 +121,23 @@ public class ControllerDesktop implements Initializable{
       
         // Obtenir les dades de l'opció seleccionada
         JSONObject dades = appData.getItemData(type, index);
-      
+        
+        URL resource = null;
         // Carregar la plantilla
-        URL resource = this.getClass().getResource("assets/template_info_item.fxml");
+        switch(type){
+            case "Consoles": 
+                resource = this.getClass().getResource("assets/template_info_item.fxml");
+                break;
+
+            case "Jocs": 
+                resource = this.getClass().getResource("assets/template_info_VJ.fxml");
+                break;
+
+            case "Personatges": 
+                resource = this.getClass().getResource("assets/template_info_item.fxml");
+                break;
+        }
+       //URL resource = this.getClass().getResource("assets/template_info_item.fxml");
       
         // Esborrar la informació actual
         info.getChildren().clear();
@@ -131,13 +145,36 @@ public class ControllerDesktop implements Initializable{
         try {
             FXMLLoader loader = new FXMLLoader(resource);
             Parent itemTemplate = loader.load();
-            ControllerInfoItem itemController = loader.getController();
-            itemController.setImage("assets/images/" + dades.getString("imatge"));
-            itemController.setTitle(dades.getString("nom"));
+            
+            
             switch (type) {
-              case "Consoles": itemController.setText(dades.getString("procesador") + "\n" + dades.getString("data") +"\ncolor: "+ dades.getString("color") + "\nvenudes: "+ dades.getInt("venudes")); break;
-              case "Jocs": itemController.setText("genere: " + dades.getString("tipus") + "\nany: " + dades.getInt("any") + "\n" + dades.getString("descripcio")); break;
-              case "Personatges": itemController.setText(dades.getString("nom_del_videojoc") + "\ncolor: " + dades.getString("color")); break;
+                case "Consoles": 
+                    ControllerInfoC  cController = loader.getController();
+                    cController.setImage("assets/images/" + dades.getString("imatge"));
+                    cController.setProcesador(dades.getString("procesador"));
+                    cController.setData(dades.getString("data"));
+                    cController.setTitle(dades.getString("nom"));
+                    cController.setColor(dades.getString("color"));
+                    cController.setVenudes(dades.getInt("venudes"));
+                    break;
+
+                case "Jocs": 
+                    ControllerInfoVJ  vjController = loader.getController();
+                    vjController.setImage("assets/images/" + dades.getString("imatge"));
+                    vjController.setTipus(dades.getString("tipus"));
+                    vjController.setAny(dades.getInt("any"));
+                    vjController.setTitle(dades.getString("nom"));
+                    vjController.setDescripcio(dades.getString("descripcio"));
+                    break;
+
+                case "Personatges": 
+                    ControllerInfoItem itemController = loader.getController();
+                    itemController.setImage("assets/images/" + dades.getString("imatge"));
+                    itemController.setTitle(dades.getString("nom")); 
+                    itemController.setColor(dades.getString("color")); 
+                    itemController.setVideoJoc(dades.optString("nom_del_videojoc")); 
+                    break;
+                    
             }
         
             // Afegeix la informació a la vista

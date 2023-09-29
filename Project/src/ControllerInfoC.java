@@ -3,8 +3,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class ControllerInfoItem {
-
+public class ControllerInfoC {
     @FXML
     private ImageView img;
 
@@ -12,10 +11,16 @@ public class ControllerInfoItem {
     private Label title = new Label();
 
     @FXML
-    private Label videoJoc = new Label();
+    private Label data = new Label();
+
+    @FXML
+    private Label procesador = new Label();
 
     @FXML
     private Label color = new Label();
+
+    @FXML
+    private Label venudes = new Label();
 
     public void setImage(String resourceName) {
         // Obté una referència al recurs dins del .jar
@@ -30,14 +35,24 @@ public class ControllerInfoItem {
         // Estableix el contingut del Label
         this.title.setText(text);
     }
-    
-    public void setVideoJoc(String text) {
+
+    public void setData(String text) {
         // Estableix el contingut del Label
-        this.videoJoc.setText(text);
+        this.data.setText(text);
     }
-    
+
+    public void setProcesador(String text) {
+        // Estableix el contingut del Label
+        this.procesador.setText(text);
+    }
+
     public void setColor(String text) {
         // Estableix el contingut del Label
         this.color.setText(text);
+    }
+
+    public void setVenudes(Integer text) {
+        // Estableix el contingut del Label
+        this.venudes.setText(text.toString());
     }
 }
