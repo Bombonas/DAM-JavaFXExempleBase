@@ -22,19 +22,23 @@ public class ControllerMobile0 implements Initializable{
 
         UtilsViews.parentContainer.setStyle("-fx-font: 14 arial;");
         try {
-            UtilsViews.addView(getClass(), "Mobile1", "assets/layout_mobile_1.fxml");
+            UtilsViews.addView(getClass(), "Pers", "assets/layout_mobile_Pers.fxml");
+            UtilsViews.addView(getClass(), "Jocs", "assets/layout_mobile_Jocs.fxml");
+            UtilsViews.addView(getClass(), "Cons", "assets/layout_mobile_Cons.fxml");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        AppData appData = AppData.getInstance();
+
         pers.setOnMouseClicked(event -> {
-            UtilsViews.setView("Mobile1");
+            UtilsViews.setView("Pers");
         });
         jocs.setOnMouseClicked(event -> {
-            UtilsViews.setView("Mobile1");
+            UtilsViews.setView("Jocs");
         });
         consoles.setOnMouseClicked(event -> {
-            UtilsViews.setView("Mobile1");
+            UtilsViews.setView("Cons");
         });   
     }
 }
