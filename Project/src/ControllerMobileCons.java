@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 public class ControllerMobileCons implements Initializable{
@@ -57,13 +58,19 @@ public class ControllerMobileCons implements Initializable{
                 itemController.setText(nom);
                 itemController.setImage(imatge);
 
-                // itemTemplate.setOnMouseClicked(event -> {
+                final int index = i;
+                itemTemplate.setOnMouseClicked(event -> {
                     
-                // });
+                    ControllerMobileInfo ControllerMI = (ControllerMobileInfo) UtilsViews.getController("MobileInfo");
+                    ControllerMI.showInfo("Consoles", index);
+                    UtilsViews.setView("MobileInfo");
+                });
 
                 yPane.getChildren().add(itemTemplate);
             }
         }
     }
+
+    
     
 }

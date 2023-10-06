@@ -58,9 +58,13 @@ public class ControllerMobilePers implements Initializable{
                 itemController.setText(nom);
                 itemController.setImage(imatge);
 
-                // itemTemplate.setOnMouseClicked(event -> {
+                final int index = i;
+                itemTemplate.setOnMouseClicked(event -> {
                     
-                // });
+                    ControllerMobileInfo ControllerMI = (ControllerMobileInfo) UtilsViews.getController("MobileInfo");
+                    ControllerMI.showInfo("Personatges", index);
+                    UtilsViews.setView("MobileInfo");
+                });
 
                 yPane.getChildren().add(itemTemplate);
             }

@@ -57,9 +57,13 @@ public class ControllerMobileVJ implements Initializable{
                 itemController.setText(nom);
                 itemController.setImage(imatge);
 
-                // itemTemplate.setOnMouseClicked(event -> {
+                final int index = i;
+                itemTemplate.setOnMouseClicked(event -> {
                     
-                // });
+                    ControllerMobileInfo ControllerMI = (ControllerMobileInfo) UtilsViews.getController("MobileInfo");
+                    ControllerMI.showInfo("Jocs", index);
+                    UtilsViews.setView("MobileInfo");
+                });
 
                 yPane.getChildren().add(itemTemplate);
             }
